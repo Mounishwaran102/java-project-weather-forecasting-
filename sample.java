@@ -5,24 +5,20 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class sample extends Frame implements ActionListener {
-    // Components of the GUI
+    
     TextField cityNameField, temperatureField, positionField;
     TextArea displayArea;
     Button addButton, deleteButton, updateButton, insertButton, displayButton;
     Label cityLabel, tempLabel, posLabel;
 
-    // Data structures to store city information
     ArrayList<String> cityList = new ArrayList<>();
     ArrayList<Double> tempList = new ArrayList<>();
 
-    // Previous day's temperature records
     ArrayList<Double> prevDayTempList = new ArrayList<>();
 
-    // Constructor to set up the GUI
     public sample() {
         setLayout(new BorderLayout());
 
-        // Create a panel for the labels and text fields
         Panel inputPanel = new Panel(new GridLayout(3, 2, 10, 10));
         cityLabel = new Label("City Name:");
         cityNameField = new TextField(15);
@@ -38,7 +34,6 @@ public class sample extends Frame implements ActionListener {
         inputPanel.add(posLabel);
         inputPanel.add(positionField);
 
-        // Create a panel for the buttons
         Panel buttonPanel = new Panel(new GridLayout(5, 1, 5, 5));
         addButton = new Button("Add City");
         deleteButton = new Button("Delete City");
@@ -54,13 +49,11 @@ public class sample extends Frame implements ActionListener {
 
         displayArea = new TextArea(10, 40);
 
-        // Add the input panel, display area, and button panel to the frame
         add(inputPanel, BorderLayout.NORTH);
         add(displayArea, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.EAST);
 
-        // Set background color to a mix of blue and yellow (green)
-        Color mixedColor = new Color(0, 128, 128); // Green
+        Color mixedColor = new Color(0, 128, 128);
         inputPanel.setBackground(mixedColor);
         buttonPanel.setBackground(mixedColor);
         displayArea.setBackground(mixedColor);
@@ -75,16 +68,14 @@ public class sample extends Frame implements ActionListener {
         setSize(600, 400);
         setVisible(true);
 
-        // Properly handle the window closing event
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent we) {
-                dispose(); // Dispose the frame
-                System.exit(0); // Exit the application
+                dispose(); 
+                System.exit(0); 
             }
         });
     }
 
-    // Event handling
     public void actionPerformed(ActionEvent e) {
         String cityName = cityNameField.getText();
         String tempText = temperatureField.getText();
@@ -110,7 +101,7 @@ public class sample extends Frame implements ActionListener {
                 cityList.remove(index);
                 tempList.remove(index);
                 prevDayTempList.remove(index);
-                displayArea.setText(""); // Clear display area
+                displayArea.setText("");
                 updateDisplayArea();
             } else {
                 displayArea.append("City not found.\n");
@@ -121,7 +112,7 @@ public class sample extends Frame implements ActionListener {
                 double tempCelsius = Double.parseDouble(tempText);
                 prevDayTempList.set(index, tempList.get(index));
                 tempList.set(index, tempCelsius);
-                displayArea.setText(""); // Clear display area
+                displayArea.setText(""); 
                 updateDisplayArea();
             } else {
                 displayArea.append("City not found or temperature is empty.\n");
@@ -134,7 +125,7 @@ public class sample extends Frame implements ActionListener {
                     cityList.add(position, cityName);
                     tempList.add(position, tempCelsius);
                     prevDayTempList.add(position, tempCelsius);
-                    displayArea.setText(""); // Clear display area
+                    displayArea.setText(""); 
                     updateDisplayArea();
                 } else {
                     displayArea.append("Invalid position.\n");
@@ -154,14 +145,12 @@ public class sample extends Frame implements ActionListener {
         }
     }
 
-    // Method to update the display area with the current city and temperature list
     private void updateDisplayArea() {
         for (int i = 0; i < cityList.size(); i++) {
             displayArea.append("City: " + cityList.get(i) + ", Temperature: " + tempList.get(i) + "°C\n");
         }
     }
 
-    // Method to show a message dialog
     private void showMessageDialog(String title, String message) {
         Dialog dialog = new Dialog(this, title, true);
         dialog.setLayout(new FlowLayout());
@@ -187,7 +176,7 @@ public class sample extends Frame implements ActionListener {
         dialog.setVisible(true);
     }
 
-    // Main method to launch the application
+    
     public static void main(String[] args) {
         sample obj = new sample();
         obj.setSize(new Dimension(600, 400));
